@@ -1,27 +1,21 @@
 <h1>ALL THE USERS</h1>
 
 <% users.forEach(function(user){ %>
-    <li>
-    Username: <%= user.username %>. and my id is :<%= user._id %>
-    </li>
+    <H3>
+    Username: <%= user.username %>. Edit <button> <a href="/emex/<%= user._id %>">Password</a></button>
+    </H3>
 <% }) %>
 
 
-<form action="/emex" method="POST">
-<input type="text"  name="username" placeholder="username">
-<input type="password" name="password" placeholder="password">
-<button>sign up</button>
-</form>
 
 
-<form action="/login" method="POST">
-    <input type="text"  name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <button>log in</button>
-    </form>
 
-<button>
-        <a href="/logout">logout</a>
-</button>   
+<% if(!User){ %>
+    <li><a href="/login">Login</a></li>
+    <li><a href="/signup">Sign Up</a></li>
+<% } else{ %>
+    <li><a href="/logout">Logout</a></li>
+    <% } %>
+
 
 
