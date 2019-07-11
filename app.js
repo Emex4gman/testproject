@@ -57,8 +57,8 @@ app.get("/emex/new", function(req, res){
 
 // create route 
 app.post("/emex", function(req, res){
-    var username = "req.body.username";
-    var password =  "req.body.password";
+    var username = req.body.username;
+    var password =  req.body.password;
     var newUser = { username: username, password: password};
 
     User.create(newUser, function(err, newlyUser){
@@ -69,13 +69,6 @@ app.post("/emex", function(req, res){
             res.redirect("/emex")
         }
     });
-    // User.create(req.body.blog, function(err, newUser){
-    //     if(err){
-    //         console.log(err);
-    //     } else {
-           
-    //             }
-    // })
     
 });
 
@@ -88,7 +81,6 @@ app.get("/emex/:id/edit", function(req, res){
 app.put("/emex", function(req, res){
     res.send("update route");
 });
-
 
 // destroy route
 app.delete("/emex", function(req, res){
