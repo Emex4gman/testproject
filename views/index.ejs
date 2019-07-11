@@ -1,18 +1,27 @@
+<h1>ALL THE USERS</h1>
+
 <% users.forEach(function(user){ %>
-    <h3>
-    Username: <%= user.username %>.  And the password: <%= user.password %>
-    </h3>
+    <li>
+    Username: <%= user.username %>. and my id is :<%= user._id %>
+    </li>
 <% }) %>
 
 
 <form action="/emex" method="POST">
 <input type="text"  name="username" placeholder="username">
 <input type="password" name="password" placeholder="password">
-<button>submit</button>
+<button>sign up</button>
 </form>
 
-<form action="/emex" method="PATCH">
+
+<form action="/login" method="POST">
     <input type="text"  name="username" placeholder="username">
     <input type="password" name="password" placeholder="password">
-    <button>update</button>
-</form>
+    <button>log in</button>
+    </form>
+
+<button>
+        <a href="/logout">logout</a>
+</button>   
+
+
