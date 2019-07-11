@@ -4,13 +4,16 @@ var express         = require("express")
     mongoose        = require("mongoose"),
     passport        = require("passport"),
     localStrategy   = require("passport-local"),
-    methodOverride  = require("method-override");
-
-
+    methodOverride  = require("method-override"),
+    jwt             = require('jsonwebtoken');
+    // var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
 //DATABABSE CONFIG
 mongoose.connect("mongodb://localhost/emexapi",  {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true})); 
 app.set("view engine", "ejs");
+app.use(methodOverride("_method"));
+
+
 
 
 //MONGOOSE CONFIG
@@ -26,6 +29,20 @@ var User = mongoose.model("User", UserSchema);
 //     username: "emex",
 //     password: "emex",
 // });
+
+
+//PASSPORT CONFIG
+app.use(require("./node_modules/express-session")({
+    secret:"hell yes",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 app.get("/", function(req, res){
@@ -78,7 +95,7 @@ app.get("/emex/:id/edit", function(req, res){
 });
 
 // update route
-app.put("/emex", function(req, res){
+app.put("/emex/:id", function(req, res){
     res.send("update route");
 });
 
